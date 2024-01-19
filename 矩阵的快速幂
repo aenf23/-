@@ -1,0 +1,38 @@
+
+def ksm(A,b):
+    if b==0:
+        A=[[1 if i==j else 0 for j in range(len(A))]for i in range(len(A))]
+        return A
+    else:
+        res=ksm(A,b//2)
+        if(b%2==1):
+            res=mul(res,res)
+            res=mul(res,A)
+        else:
+            res=mul(res,res)
+        return res
+def mul(A,B):
+    n,m=len(A),len(A[0])
+    _m,k=len(B),len(B[0])
+    if m!=_m:
+        return False
+    else:
+        C=[[0]*k for _ in range(n)]
+        for i in range(n):
+            for j in range(k):
+                 for r in range(m):
+                     C[i][j]+=A[i][r]*B[r][j]
+        return C
+def read(A,a):
+    for i in range(a):
+      A.append(list(map(int,input().split())))
+    return A
+def output(A):
+    for x in (A):
+        print(*x)
+
+a,b=map(int,input().split())
+A=[]
+read(A,a)
+output(ksm(A,b))
+
